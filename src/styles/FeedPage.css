@@ -65,14 +65,13 @@
 }
 
 .header-mahe {
-  height: 30px;
+  height: 28px;
   width: auto;
   max-width: 160px;
   object-fit: contain;
   object-position: left center;
-  border-radius: 6px;
-  background: #fff;
-  padding: 3px 7px;
+  mix-blend-mode: lighten;
+  opacity: 0.92;
 }
 
 .header-action {
@@ -108,7 +107,7 @@
     padding: 0 24px;
   }
   .header-title { font-size: 18px; }
-  .header-mahe { height: 28px; max-width: 180px; }
+  .header-mahe { height: 26px; max-width: 180px; }
   .header-action-label { display: inline; }
   .header-action { padding: 0 18px; height: 36px; }
 }
@@ -494,6 +493,16 @@
 }
 
 .ghost-btn:active { transform: scale(0.95); }
+
+/* ── Made-by credit ──────────────────────────────────────────────────────── */
+.feed-credit {
+  text-align: center;
+  padding: 12px 0 20px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+}
 
 /* ═══════════════════════════════════════════════════════
    MODAL — Bottom sheet on mobile, centred on desktop

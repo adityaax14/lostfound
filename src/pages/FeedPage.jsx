@@ -360,6 +360,7 @@ export default function FeedPage({ onPostClick }) {
             ))}
           </div>
         )}
+        <p className="feed-credit">made by Aditya &middot; CSE B</p>
       </main>
 
       {selected && (
