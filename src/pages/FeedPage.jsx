@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { apiGetItems, apiResolveItem } from "../services/api.js";
-import manipalLogo from "../assets/manipal-logo.jpeg";
+import manipalLogo from "../assets/WhatsApp Image 2026-04-06 at 9.08.50 PM.jpeg";
 import "../styles/FeedPage.css";
 
 const CATEGORIES = [
