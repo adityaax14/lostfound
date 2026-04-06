@@ -34,7 +34,8 @@ const Ico = {
 };
 
 export default function PostPage({ onBack }) {
-  const fileRef = useRef();
+  const fileRef    = useRef();
+  const cameraRef  = useRef();
 
   const [form, setForm] = useState({
     type: "", category: "", description: "", contact_phone: "", note: "",
@@ -91,6 +92,11 @@ export default function PostPage({ onBack }) {
         note:        form.note.trim() || null,
       });
 
+      // Remember this phone so we can gate "Resolve" on the feed
+      const stored = JSON.parse(localStorage.getItem("myPhones") || "[]");
+      if (!stored.includes(form.contact_phone)) {
+        localStorage.setItem("myPhones", JSON.stringify([...stored, form.contact_phone]));
+      }
       setDone(true);
     } catch (err) {
       setSrvErr(err.message);
@@ -142,34 +148,60 @@ export default function PostPage({ onBack }) {
       <div className="post-scroll">
 
         {/* Image upload */}
-        <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleImg} />
+        <input ref={fileRef}   type="file" accept="image/*"                  style={{ display: "none" }} onChange={handleImg} />
+        <input ref={cameraRef} type="file" accept="image/*" capture="environment" style={{ display: "none" }} onChange={handleImg} />
 
-        <div
-          className={`post-img-zone ${imgPreview ? "post-img-zone--filled" : ""}`}
-          onClick={() => fileRef.current?.click()}
-        >
-          {imgPreview ? (
-            <>
-              <img src={imgPreview} alt="Preview" className="post-img-preview" />
-              <div className="post-img-overlay">
-                <Ico.Camera />
-                <span>Change photo</span>
-              </div>
-            </>
-          ) : (
-            <>
+        {imgPreview ? (
+          /* ── Preview state ── */
+          <div
+            className="post-img-zone post-img-zone--filled"
+            onClick={() => fileRef.current?.click()}
+          >
+            <img src={imgPreview} alt="Preview" className="post-img-preview" />
+            <div className="post-img-overlay">
               <Ico.Camera />
-              <span className="post-img-label">Add a photo</span>
-              <span className="post-img-hint">JPEG, PNG, WebP — max 5 MB</span>
-            </>
-          )}
-          {uploading && (
-            <div className="post-img-uploading">
-              <div className="post-spinner" />
-              <span>Uploading…</span>
+              <span>Change photo</span>
             </div>
-          )}
-        </div>
+            {uploading && (
+              <div className="post-img-uploading">
+                <div className="post-spinner" />
+                <span>Uploading…</span>
+              </div>
+            )}
+          </div>
+        ) : (
+          /* ── Empty state — two buttons ── */
+          <div className="post-img-zone">
+            <Ico.Camera />
+            <span className="post-img-label">Add a photo</span>
+            <span className="post-img-hint">JPEG, PNG, WebP — max 5 MB</span>
+            <div className="post-img-btns">
+              <button
+                type="button"
+                className="post-img-pick-btn"
+                onClick={e => { e.stopPropagation(); cameraRef.current?.click(); }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+                Take photo
+              </button>
+              <button
+                type="button"
+                className="post-img-pick-btn post-img-pick-btn--ghost"
+                onClick={e => { e.stopPropagation(); fileRef.current?.click(); }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Upload
+              </button>
+            </div>
+          </div>
+        )}
         {errors.image && <p className="post-field-err" style={{ marginTop: -4 }}>{errors.image}</p>}
 
         {/* Type */}

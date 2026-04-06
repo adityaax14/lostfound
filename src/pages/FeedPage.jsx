@@ -100,6 +100,10 @@ function ItemModal({ item, onClose, onResolved }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const ref = useRef(null);
 
+  // Check if the current user created this post (matched by saved phones)
+  const myPhones = JSON.parse(localStorage.getItem("myPhones") || "[]");
+  const isOwner  = myPhones.includes(item.contact_phone);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const esc = e => e.key === "Escape" && onClose();
@@ -181,9 +185,11 @@ function ItemModal({ item, onClose, onResolved }) {
                   <Icon.Whatsapp />
                   WhatsApp
                 </a>
-                <button className="cta-btn cta-btn--secondary" onClick={handleResolve} disabled={resolving}>
-                  {resolving ? <span className="spin" /> : <><Icon.Check /> Resolve</>}
-                </button>
+                {isOwner && (
+                  <button className="cta-btn cta-btn--secondary" onClick={handleResolve} disabled={resolving}>
+                    {resolving ? <span className="spin" /> : <><Icon.Check /> Resolve</>}
+                  </button>
+                )}
               </>
             )}
           </div>

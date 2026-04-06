@@ -100,6 +100,39 @@
   color: var(--text-muted);
 }
 
+/* ── Two-button picker row ────────────────────────────────────────────────── */
+.post-img-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.post-img-pick-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  background: var(--text-primary);
+  color: var(--bg);
+  border: none;
+}
+
+.post-img-pick-btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-mid);
+}
+
+.post-img-pick-btn:active { transform: scale(0.95); }
+.post-img-pick-btn--ghost:active { background: var(--bg-raised); }
+
 .post-img-preview {
   position: absolute;
   inset: 0;
