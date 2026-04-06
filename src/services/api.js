@@ -1,4 +1,4 @@
-const BASE = "http://localhost:5001";
+const BASE = "https://lostfound-backend-seven.vercel.app";
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE}${path}`, {
