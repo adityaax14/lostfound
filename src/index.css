@@ -1,0 +1,16 @@
+@import './styles/token.css';
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove all the Vite boilerplate styles */
