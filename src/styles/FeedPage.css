@@ -10,6 +10,29 @@
   background: var(--bg);
 }
 
+/* Keep content pleasantly centered on wide screens */
+@media (min-width: 1200px) {
+  .header,
+  .filter-bar,
+  .feed {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .header {
+    border-left: 1px solid var(--border-dim);
+    border-right: 1px solid var(--border-dim);
+  }
+  .filter-bar {
+    border-left: 1px solid var(--border-dim);
+    border-right: 1px solid var(--border-dim);
+  }
+  .feed {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════
    HEADER
 ═══════════════════════════════════════════════════════ */
