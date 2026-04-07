@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { apiGetItems, apiResolveItem } from "../services/api.js";
-import manipalLogo from "../assets/manipal-logo.jpeg";
+import manipalLogo from "../assets/WhatsApp Image 2026-04-06 at 9.08.50 PM.jpeg";
 import "../styles/FeedPage.css";
 
 const CATEGORIES = [
@@ -249,7 +249,7 @@ export default function FeedPage({ onPostClick }) {
   const [activeCat,  setActiveCat]  = useState("all");
   const [selected,   setSelected]   = useState(null);
 
-  const fetchItems = useCallback(async () => {
+  const fetchItems = async () => {
     setLoading(true); setError("");
     try {
       setItems(await apiGetItems({
@@ -258,9 +258,9 @@ export default function FeedPage({ onPostClick }) {
       }));
     } catch (e) { setError(e.message); }
     finally     { setLoading(false); }
-  }, [activeType, activeCat]);
+  };
 
-  useEffect(() => { fetchItems(); }, [fetchItems]);
+  useEffect(() => { fetchItems(); }, [activeType, activeCat]);
 
   const handleResolved = id => { setItems(p => p.filter(i => i.id !== id)); setSelected(null); };
   const lostCount  = items.filter(i => i.type === "lost").length;
